@@ -11,6 +11,7 @@ import platform
 import shlex
 import subprocess
 import sys
+from security import safe_command
 
 
 def get_ip():
@@ -67,7 +68,7 @@ def labelme_on_docker(in_file, out_file):
     cmd += " wkentaro/labelme labelme {0}".format(in_file_b)
     if out_file:
         cmd += " -O {0}".format(out_file_b)
-    subprocess.call(shlex.split(cmd))
+    safe_command.run(subprocess.call, shlex.split(cmd))
 
     if out_file:
         try:
